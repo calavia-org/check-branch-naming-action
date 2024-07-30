@@ -11,10 +11,10 @@ runs:
   steps:
     - name: 'check if branch name conforms to ${{ inputs.allowed_branch_re }}'
       run: |
-        if ! [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (${EXPRESSION}) || ! "$(echo ${GITHUB_BASE_REF})" =~ (master|main) ]]; then
-          echo "Your pull request to main does not follow your naming convention -> ${EXPRESSION}"
+        if ! [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (${{ inputs.allowed_branch_re }}) || ! "$(echo ${GITHUB_BASE_REF})" =~ (master|main) ]]; then
+          echo "Your pull request to main does not follow your naming convention -> ${{ inputs.allowed_branch_re }}"
           exit 1
         else
-          echo "Your branch name follows the your naming convention -> ${EXPRESSION}"
+          echo "Your branch name follows the your naming convention -> ${{ inputs.allowed_branch_re }}"
         fi
       shell: bash
