@@ -17,6 +17,7 @@ runs:
           echo "Your branch name follows the your naming convention -> ${EXPRESSION}"
         fi
       shell: bash
-branding:
+      env:
+        EXPRESSION: ${{ inputs.allowed_branch_re }}:
   icon: 'git-branch'
   color: 'orange'
