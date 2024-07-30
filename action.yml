@@ -18,6 +18,6 @@ runs:
         fi
       shell: bash
       env:
-        EXPRESSION: ${{ inputs.allowed_branch_re }}:
+        EXPRESSION: ${{ inputs.allowed_branch_re }}
   icon: 'git-branch'
   color: 'orange'
