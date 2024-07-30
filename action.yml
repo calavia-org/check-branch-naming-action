@@ -1,0 +1,22 @@
+name: 'Check Branch Name'
+author: 'Jorge Calavia'
+description: 'check the pull request branch name follows the given naming convention'
+inputs:
+  allowed_branch_re:
+    description: 'Regular Expression for allowed branch names in Pull Requests'
+    default: ^feature$|^hotfix$|^bugfix$|^release$
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        if ! [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (${EXPRESSION}) || ! "$(echo ${GITHUB_BASE_REF})" =~ (master|main) ]]; then
+          echo "Your pull request to main does not follow your naming convention -> ${EXPRESSION}"
+          exit 1
+        else
+          echo "Your branch name follows the your naming convention -> ${EXPRESSION}"
+        fi
+      shell: bash
+branding:
+  icon: 'git-branch'
+  color: 'orange'
