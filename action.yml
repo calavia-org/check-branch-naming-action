@@ -7,9 +7,10 @@ inputs:
     default: ^feature$|^hotfix$|^bugfix$|^release$
     required: false
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
-    - run: |
+    - name: 'check if branch name conforms to ${{ inputs.allowed_branch_re }}'
+      run: |
         if ! [[ "$(echo ${GITHUB_HEAD_REF} | cut -d "/" -f1)" =~ (${EXPRESSION}) || ! "$(echo ${GITHUB_BASE_REF})" =~ (master|main) ]]; then
           echo "Your pull request to main does not follow your naming convention -> ${EXPRESSION}"
           exit 1
@@ -17,7 +18,3 @@ runs:
           echo "Your branch name follows the your naming convention -> ${EXPRESSION}"
         fi
       shell: bash
-      env:
-        EXPRESSION: ${{ inputs.allowed_branch_re }}
-  icon: 'git-branch'
-  color: 'orange'
